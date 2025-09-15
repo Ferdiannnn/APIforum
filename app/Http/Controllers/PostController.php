@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with(['reaction', 'comments'])->get();
         return response()->json($posts);
     }
 
@@ -61,7 +61,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('comments')->findOrFail($id);
+        $post = Post::with('reaction')->findOrFail($id);
         return response()->json($post);
     }
 }

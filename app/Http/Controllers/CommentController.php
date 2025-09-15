@@ -47,4 +47,20 @@ class CommentController extends Controller
 
         return response()->json($comment, 201);
     }
+
+    public function update($postId, $commentId, Request $request)
+    {
+        $Comment = Comment::findOrFail($commentId);
+
+        if ($request->user()->id == $Comment->user_id) {
+            $Comment->update([
+
+                'post_id' => $postId,
+                'user_id' => $request->user()->id,
+                'content' => $request->content
+            ]);
+            return response()->json(["data" => $Comment, "status" => 200]);
+        }
+        return response()->json(["data" => "Not Found", "status" => 404]);
+    }
 }

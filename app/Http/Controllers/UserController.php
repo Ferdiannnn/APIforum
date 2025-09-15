@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -49,5 +50,13 @@ class UserController extends Controller
         ]);
 
         return response()->json($user, 201);
+    }
+
+    public function me(Request $request)
+    {
+        $user = $request->user()->id;
+
+        $post = User::where('id', $user)->with('posts')->first();
+        return response()->json($post);
     }
 }

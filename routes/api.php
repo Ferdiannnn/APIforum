@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -35,3 +36,12 @@ Route::delete('/post/{id}', [PostController::class, 'destroy'])->middleware('aut
 Route::post('/post/{postId}/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
 Route::delete('/post/{postId}/comments/{commentId}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
 Route::post('/post/{postId}/comments/{commentId}', [CommentController::class, 'reply'])->middleware('auth:sanctum');
+Route::put('/post/{postId}/comments/{commentId}', [CommentController::class, 'update'])->middleware('auth:sanctum');
+
+Route::get('/posts/like', [ReactionController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/posts/{id}/like', [ReactionController::class, 'show'])->middleware('auth:sanctum');
+Route::post('/posts/{id}/like', [ReactionController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/posts/{id}/like', [ReactionController::class, 'update'])->middleware('auth:sanctum');
+
+
+Route::get('/me', [UserController::class, 'me'])->middleware('auth:sanctum');
