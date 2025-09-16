@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\PostDetailResource;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,8 +13,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['reaction', 'comments'])->get();
-        return response()->json($posts);
+        $posts = Post::with(['reaction:id,user_id,post_id,type', 'comments:id,post_id,user_id,content', 'user:id,name'])->get();
+        return PostResource::collection($posts);
     }
 
     public function store(Request $request)
@@ -61,7 +63,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('reaction')->findOrFail($id);
-        return response()->json($post);
+        $post = Post::with(['reaction', 'comments', 'user'])->findOrFail($id);
+        return new PostDetailResource($post);
     }
 }
