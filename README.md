@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API FORUM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deskripsi Proyek
 
-## About Laravel
+Proyek ini adalah sebuah API yang dibangun menggunakan framework **Laravel** untuk mengelola data pengguna, postingan, komentar, dan reaksi ["like","dislike"]. API ini mendukung operasi CRUD (Create, Read, Update, Delete) dan dilengkapi dengan sistem autentikasi menggunakan **Laravel Sanctum**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   **Autentikasi Pengguna**: Login dan registrasi pengguna menggunakan Sanctum.
+-   **Manajemen Post**: Membuat, melihat, memperbarui, dan menghapus postingan.
+-   **Manajemen Komentar**: Menambahkan komentar dan balasan ke postingan.
+-   **Reaksi (Like)**: Memberikan dan mengelola reaksi pada postingan.
+-   **Protected Routes**: Semua *endpoint* sensitif dilindungi oleh *middleware* `auth:sanctum`.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Persyaratan Sistem
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   PHP >= 8.1
+-   Composer
+-   Laravel >= 10
+-   Database (MySQL, PostgreSQL, atau SQLite)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalasi
 
-## Laravel Sponsors
+1.  **Clone repositori ini:**
+    ```bash
+    git clone [https://github.com/Ferdiannnn/APIforum.git](https://github.com/Ferdiannnn/APIforum.git)
+    cd nama_repo
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2.  **Instal dependensi Composer:**
+    ```bash
+    composer install
+    ```
 
-### Premium Partners
+3.  **Salin file `.env.example` menjadi `.env`:**
+    ```bash
+    cp .env.example .env
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4.  **Konfigurasi `.env`:**
+    Buka file `.env` dan atur konfigurasi database Anda.
 
-## Contributing
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database_anda
+    DB_USERNAME=user_database_anda
+    DB_PASSWORD=password_database_anda
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5.  **Jalankan migrasi database dan seed (opsional):**
+    ```bash
+    php artisan migrate
+    # php artisan db:seed (jika Anda memiliki data seed)
+    ```
 
-## Code of Conduct
+6.  **Buat Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7.  **Jalankan server pengembangan Laravel:**
+    ```bash
+    php artisan serve
+    ```
+    API akan berjalan di `http://127.0.0.1:8000`.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Dokumentasi API
 
-## License
+Semua *endpoint* yang memerlukan autentikasi dilindungi oleh *middleware* `auth:sanctum`. Anda harus menyertakan token autentikasi di header permintaan: `Authorization: Bearer <your-sanctum-token>`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **Endpoint Autentikasi dan Pengguna**
+
+| Endpoint | Metode HTTP | Deskripsi |
+| :--- | :--- | :--- |
+| `/api/login` | `POST` | Autentikasi pengguna dan mengembalikan token. |
+| `/api/register` | `POST` | Mendaftarkan pengguna baru. |
+| `/api/users` | `GET` | Mengambil daftar semua pengguna. |
+| `/api/me` | `GET` | Mengambil data pengguna yang diautentikasi. |
+
+### **Endpoint Post**
+
+| Endpoint | Metode HTTP | Deskripsi |
+| :--- | :--- | :--- |
+| `/api/posts` | `GET` | Mengambil daftar semua *post*. |
+| `/api/posts` | `POST` | Membuat *post* baru. |
+| `/api/post/{id}` | `GET` | Mengambil detail *post* tertentu. |
+| `/api/post/{id}` | `PUT` | Memperbarui *post* tertentu. |
+| `/api/post/{id}` | `DELETE` | Menghapus *post* tertentu. |
+
+### **Endpoint Komentar**
+
+| Endpoint | Metode HTTP | Deskripsi |
+| :--- | :--- | :--- |
+| `/api/post/{postId}/comments` | `POST` | Menambahkan komentar ke *post*. |
+| `/api/post/{postId}/comments/{commentId}` | `PUT` | Memperbarui komentar. |
+| `/api/post/{postId}/comments/{commentId}` | `POST` | Menambahkan balasan ke komentar. |
+| `/api/post/{postId}/comments/{commentId}` | `DELETE` | Menghapus komentar. |
+
+### **Endpoint Reaksi (Like)**
+
+| Endpoint | Metode HTTP | Deskripsi |
+| :--- | :--- | :--- |
+| `/api/posts/like` | `GET` | Mengambil semua reaksi pada semua *post*. |
+| `/api/posts/{id}/like` | `GET` | Mengambil reaksi pada *post* tertentu. |
+| `/api/posts/{id}/like` | `POST` | Menambahkan reaksi pada *post* tertentu. |
+| `/api/posts/{id}/like` | `PUT` | Memperbarui atau membatalkan reaksi. |
+
+---
