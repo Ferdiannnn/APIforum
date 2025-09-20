@@ -28,7 +28,7 @@ class PostController extends Controller
             'content' => $request->content,
             'user_id' => $request->user()->id
         ]);
-        return response()->json(['status' => true, 'data' => $post], 200);
+        return new PostResource($post);
     }
 
     public function update(Request $request, $id)
@@ -46,7 +46,7 @@ class PostController extends Controller
                 'content' => $request->content,
                 'user_id' => $request->user()->id
             ]);
-            return response()->json(['status' => true, 'data' => $post], 200);
+            return new PostResource($post);
         }
         return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
     }

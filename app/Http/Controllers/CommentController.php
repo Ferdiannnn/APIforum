@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -13,13 +14,14 @@ class CommentController extends Controller
             'content' => 'required|string|max:1000',
         ]);
 
-        $comment = new Comment();
-        $comment->post_id = $postId;
-        $comment->user_id = $request->user()->id;
-        $comment->content = $request->input('content');
-        $comment->save();
+        $comment = Comment::create([
+            'post_id' => $postId,
+            'user_id' => $request->user()->id,
+            'content' => $request->content,
+            'parent_id' => null
+        ]);
 
-        return response()->json($comment, 201);
+        return new CommentResource($comment);
     }
 
     public function destroy(Request $request, $postId, $commentId)
@@ -38,28 +40,27 @@ class CommentController extends Controller
             'content' => 'required|string|max:1000',
         ]);
 
-        $comment = new Comment();
-        $comment->post_id = $postId;
-        $comment->user_id = $request->user()->id;
-        $comment->content = $request->input('content');
-        $comment->parent_id = $commentId; // Set parent_id
-        $comment->save();
+        $comment = Comment::create([
+            'post_id' => $postId,
+            'user_id' => $request->user()->id,
+            'content' => $request->content,
+            'parent_id' => $commentId,
+        ]);
 
-        return response()->json($comment, 201);
+        return new CommentResource($comment);
     }
 
-    public function update($postId, $commentId, Request $request)
+    public function updatereplay($postId, $commentId, Request $request)
     {
         $Comment = Comment::findOrFail($commentId);
 
         if ($request->user()->id == $Comment->user_id) {
             $Comment->update([
-
                 'post_id' => $postId,
                 'user_id' => $request->user()->id,
                 'content' => $request->content
             ]);
-            return response()->json(["data" => $Comment, "status" => 200]);
+            return new CommentResource($Comment);
         }
         return response()->json(["data" => "Not Found", "status" => 404]);
     }

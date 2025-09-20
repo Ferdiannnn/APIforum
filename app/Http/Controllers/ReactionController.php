@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReactionResource;
 use App\Models\Reaction;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -12,14 +13,14 @@ class ReactionController extends Controller
     {
         $reaction = Reaction::all();
 
-        return response()->json(['status' => false, 'data' => $reaction]);
+        return ReactionResource::collection($reaction);
     }
 
     public function show($id)
     {
         $reaction = Reaction::findOrFail($id);
 
-        return response()->json(['status' => false, 'data' => $reaction]);
+        return new ReactionResource($reaction);
     }
 
     public function store(Request $request)
@@ -36,7 +37,7 @@ class ReactionController extends Controller
             ]
         );
 
-        return response()->json(['data' => $store, 'status' => 200]);
+        return new ReactionResource($store);
     }
 
     public function update($id, Request $request)
@@ -48,7 +49,7 @@ class ReactionController extends Controller
                 'post_id' => $request->id,
                 'type' => $request->type
             ]);
-            return response()->json(['data' => $reaction, 'status' => 200]);
+            return new ReactionResource($reaction);
         }
         return response()->json(['data' => 'not found', 'status' => 404]);
 

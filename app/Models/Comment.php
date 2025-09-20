@@ -13,7 +13,7 @@ class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['post_id', 'user_id', 'content'];
+    protected $fillable = ['post_id', 'user_id', 'content', 'parent_id'];
     protected $table = 'comments';
 
     public function replies()
