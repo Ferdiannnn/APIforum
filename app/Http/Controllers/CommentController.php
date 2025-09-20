@@ -50,7 +50,7 @@ class CommentController extends Controller
         return new CommentResource($comment);
     }
 
-    public function updatereplay($postId, $commentId, Request $request)
+    public function update($postId, $commentId, Request $request)
     {
         $Comment = Comment::findOrFail($commentId);
 

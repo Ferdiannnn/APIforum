@@ -36,7 +36,7 @@ Route::delete('/post/{id}', [PostController::class, 'destroy'])->middleware('aut
 Route::post('/post/{postId}/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
 Route::delete('/post/{postId}/comments/{commentId}', [CommentController::class, 'destroy'])->middleware('auth:sanctum');
 Route::post('/post/{postId}/comments/{commentId}', [CommentController::class, 'reply'])->middleware('auth:sanctum');
-Route::put('/post/{postId}/comments/{commentId}', [CommentController::class, 'updatereplay'])->middleware('auth:sanctum');
+Route::put('/post/{postId}/comments/{commentId}', [CommentController::class, 'update'])->middleware('auth:sanctum');
 
 Route::get('/posts/like', [ReactionController::class, 'index'])->middleware('auth:sanctum');
 Route::get('/posts/{id}/like', [ReactionController::class, 'show'])->middleware('auth:sanctum');
