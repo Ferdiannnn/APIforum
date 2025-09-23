@@ -11,7 +11,7 @@ class ReactionController extends Controller
 {
     public function index()
     {
-        $reaction = Reaction::all();
+        $reaction = Reaction::paginate(10);
 
         return ReactionResource::collection($reaction);
     }
